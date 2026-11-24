@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pundit Maths Mock 04 – Mathematics</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f2f5f8;color:#222;font-size:15px}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+sub,sup{font-size:.75em}
+/* ---------- intro ---------- */
+#intro{max-width:820px;margin:30px auto;background:#fff;border:1px solid #cfd8e0;border-radius:6px;overflow:hidden}
+#intro header{background:#0f96c7;color:#fff;padding:18px 24px}
+#intro header h1{font-size:20px}
+#intro header p{font-size:13px;opacity:.9;margin-top:4px}
+#intro .body{padding:22px 24px;line-height:1.6}
+#intro ul{margin:10px 0 14px 22px}
+#intro .meta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+#intro .meta div{background:#eaf6fb;border:1px solid #bfe3f2;border-radius:4px;padding:8px 14px;font-size:13px}
+#intro input{padding:9px 12px;border:1px solid #aab;border-radius:4px;width:260px;font-size:15px}
+.legend-row{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;font-size:13px;align-items:center}
+.btn{border:0;border-radius:3px;padding:10px 22px;font-size:14px;font-weight:bold}
+.btn-primary{background:#0f96c7;color:#fff}
+.btn-green{background:#2eaa5a;color:#fff}
+.btn-purple{background:#7b4cb8;color:#fff}
+.btn-light{background:#e3ecf2;color:#234;border:1px solid #b9c8d3}
+.btn-blue{background:#1d5fa8;color:#fff}
+/* ---------- palette shapes ---------- */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 8px;justify-items:center}
+.pb{width:40px;height:34px;border:0;font-size:14px;font-weight:bold;color:#fff;position:relative}
+.nv{background:#dfe3e6;color:#333;border:1px solid #b8bec3;border-radius:4px}
+.na{background:#e0463a;border-radius:4px 4px 16px 16px}
+.an{background:#2eaa5a;border-radius:16px 16px 4px 4px}
+.mr{background:#7b4cb8;border-radius:50%;width:36px;height:36px}
+.ar{background:#7b4cb8;border-radius:50%;width:36px;height:36px}
+.ar::after{content:"";position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:#2eaa5a;border:2px solid #fff}
+.cur{outline:3px solid #f5a623;outline-offset:1px}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.lg .pb{width:28px;height:26px;font-size:12px;pointer-events:none}
+.lg .mr,.lg .ar{width:27px;height:27px}
+/* ---------- test screen ---------- */
+#test{display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#0f96c7;color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar h2{font-size:16px}
+.topbar .sub{font-size:12px;opacity:.9}
+.timer{background:#fff;color:#c0392b;font-weight:bold;padding:6px 14px;border-radius:4px;font-size:17px;font-variant-numeric:tabular-nums}
+.sectionbar{background:#fff;border-bottom:1px solid #d5dde3;padding:8px 18px;font-size:13px;display:flex;gap:10px;align-items:center}
+.sectionbar span{background:#1d6a8a;color:#fff;padding:7px 38px;border-radius:3px;font-weight:bold}
+.layout{display:flex;flex:1;align-items:stretch}
+.main{flex:1;min-width:0;background:#fff;display:flex;flex-direction:column}
+.qhead{padding:12px 20px;border-bottom:1px solid #e1e6ea;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:6px}
+.qhead b{font-size:15px}
+.qbody{padding:20px 24px;flex:1;overflow:auto}
+.qtext{font-size:16px;line-height:1.6;margin-bottom:18px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;margin:6px 0;border:1px solid transparent;border-radius:5px;cursor:pointer;font-size:15.5px;line-height:1.45}
+.opt:hover{background:#f3f9fc}
+.opt input{margin-top:4px;transform:scale(1.2)}
+.qfoot{border-top:1px solid #dfe4e8;background:#f6f8fa;padding:12px 20px;display:flex;gap:10px;flex-wrap:wrap}
+.qfoot .sp{flex:1}
+.side{width:310px;background:#dcebf4;border-left:1px solid #c3d6e2;display:flex;flex-direction:column}
+.side .prof{background:#fff;padding:12px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #cdd}
+.avatar{width:42px;height:42px;border-radius:50%;background:#0f96c7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
+.side .legend{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;border-bottom:1px solid #c3d6e2}
+.side .sec{background:#a9cfe3;padding:7px 12px;font-weight:bold;font-size:13px}
+.side .palwrap{padding:14px 10px;overflow:auto;flex:1}
+.side .submitbox{padding:10px;background:#cfe2ee}
+table.dt{border-collapse:collapse;margin:10px 0;font-size:14px}
+table.dt th,table.dt td{border:1px solid #9aa;padding:5px 10px;text-align:center}
+table.dt th{background:#e6f0f6}
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:14px}
+.mbox{background:#fff;border-radius:6px;max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:22px}
+.mbox h3{margin-bottom:12px;color:#0f6f93}
+.mbox table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:14px}
+.mbox th,.mbox td{border:1px solid #cfd8e0;padding:7px 10px;text-align:center}
+.mbox th{background:#eaf4f9}
+.mbox td:first-child,.mbox th:first-child{text-align:left}
+/* ---------- result (Testbook-style) ---------- */
+#result .topbar{background:#0f96c7}
+#result .topbar .back{font-size:24px;margin-right:10px}
+#result .topbar .ttl{display:flex;align-items:center}
+#result .an-btn{background:#0b83ae;padding:14px 22px;font-weight:bold;font-size:14px;border-radius:3px}
+.rqhead{padding:14px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;border-bottom:1px solid #e3e8ec}
+.rqhead b{font-size:15px}
+.badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:bold;color:#fff}
+.b-ok{background:#2eaa5a}.b-bad{background:#c0392b}.b-skip{background:#777}
+.mk{background:#777;color:#fff;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:bold}
+.ropt{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:6px 0;border-radius:5px;border:1px solid transparent;font-size:15.5px}
+.ropt .rd{width:16px;height:16px;border:2px solid #777;border-radius:50%;flex:none;position:relative}
+.ropt.you .rd::after{content:"";position:absolute;inset:2px;background:#555;border-radius:50%}
+.ropt.right{background:#e6f6ec;border-color:#2eaa5a}
+.ropt.right .rd{border-color:#2eaa5a}
+.ropt.right .rd::after{content:"";position:absolute;inset:2px;background:#2eaa5a;border-radius:50%}
+.ropt.wrong{background:#fdeaea;border-color:#c0392b}
+.ropt.wrong .rd{border-color:#c0392b}
+.ropt.wrong .rd::after{content:"";position:absolute;inset:2px;background:#c0392b;border-radius:50%}
+.tag{margin-left:auto;font-size:12px;font-weight:bold}
+.tag.g{color:#1f8a46}.tag.r{color:#c0392b}
+.reattempt{background:#fdf1e0;border:1px solid #f1dcb9;border-radius:4px;padding:16px 18px;margin:18px 0;max-width:460px}
+.reattempt b{font-size:16px;font-weight:normal;color:#444}
+.reattempt p{font-style:italic;font-size:13px;color:#666;margin-top:4px}
+.vsbtn{background:#fff;border:1px solid #0f96c7;color:#0f96c7;padding:8px 16px;border-radius:3px;font-size:13px}
+.vsrow{display:flex;gap:12px;align-items:center;margin:14px 0;font-size:13px;color:#555;flex-wrap:wrap}
+.solbox{border:1px solid #cfe3ee;background:#f7fbfd;border-radius:5px;padding:16px 18px;margin:8px 0 20px;line-height:1.75;font-size:15px}
+.solbox h4{color:#0f6f93;margin-bottom:6px}
+.solbox .ans{margin-top:10px;font-weight:bold;color:#1f8a46}
+.pie{width:170px;height:170px;border-radius:50%;margin:10px 0}
+.pielegend{font-size:13px;line-height:1.7}
+.pielegend i{display:inline-block;width:11px;height:11px;margin-right:6px;border-radius:2px}
+#result .side .cnt{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;font-size:12px;border-bottom:1px solid #c3d6e2;background:#d8eaf4}
+.cnt span{display:inline-flex;align-items:center;gap:5px}
+.cnt em{font-style:normal;color:#fff;padding:1px 6px;border:1px solid #333;font-size:11px}
+.rp{width:40px;height:34px;border:0;font-size:14px;font-weight:bold;position:relative}
+.rp.ok{background:#2eaa5a;color:#fff;border-radius:18px 18px 3px 3px}
+.rp.bad{background:#c0392b;color:#fff;border-radius:18px 18px 3px 3px}
+.rp.skip{background:#fff;color:#222;border:1px solid #333;border-radius:2px}
+.rp.cursel{outline:2px solid #0f6f93;outline-offset:2px}
+@media(max-width:820px){.layout{flex-direction:column}.side{width:100%;border-left:0;border-top:1px solid #c3d6e2}.qbody{padding:14px}}
+</style>
+<script src="tracker.js"></script>
+</head>
+<body>
+
+<!-- =============== INTRO =============== -->
+<div id="intro">
+  <header>
+    <h1>The Pundit Maths Mock 04</h1>
+    <p>SSC CGL Tier-II (Mains) • Mathematical Abilities • 30 Questions • The Pundits All India Live Mock Series</p>
+  </header>
+  <div class="body">
+    <div class="meta">
+      <div><b>Questions:</b> 30</div>
+      <div><b>Total Marks:</b> 90</div>
+      <div><b>Duration:</b> 30 minutes</div>
+      <div><b>Marking:</b> +3 correct, −1 wrong</div>
+    </div>
+    <h3>Instructions</h3>
+    <ul>
+      <li>The countdown timer at the top-right shows the remaining time. The test auto-submits when it reaches zero.</li>
+      <li>Click a question number in the palette to jump to it.</li>
+      <li><b>Save &amp; Next</b> saves your answer and moves ahead. <b>Mark for Review &amp; Next</b> flags the question (an answered, marked question is still evaluated).</li>
+      <li><b>Clear Response</b> removes your selected option.</li>
+    </ul>
+    <div class="legend-row">
+      <span class="lg"><span class="pb nv">1</span> Not Visited</span>
+      <span class="lg"><span class="pb na">2</span> Not Answered</span>
+      <span class="lg"><span class="pb an">3</span> Answered</span>
+      <span class="lg"><span class="pb mr">4</span> Marked for Review</span>
+      <span class="lg"><span class="pb ar">5</span> Answered &amp; Marked</span>
+    </div>
+    <p style="margin-top:18px"><button class="btn btn-green" onclick="startTest()">I am ready to begin</button></p>
+  </div>
+</div>
+
+<!-- =============== TEST =============== -->
+<div id="test" class="hidden">
+  <div class="topbar">
+    <div><h2>The Pundit Maths Mock 04</h2><div class="sub">Mathematical Abilities</div></div>
+    <div>Time Left: <span class="timer" id="timer">30:00</span></div>
+  </div>
+  <div class="sectionbar"><b>SECTIONS</b><span>Mathematical Abilities</span></div>
+  <div class="layout">
+    <div class="main">
+      <div class="qhead"><b id="qno">Question No. 1</b><span>Marking Scheme: <b style="color:#2eaa5a">+3</b> / <b style="color:#c0392b">−1</b></span></div>
+      <div class="qbody"><div class="qtext" id="qtext"></div><div id="opts"></div></div>
+      <div class="qfoot">
+        <button class="btn btn-purple" onclick="markNext()">Mark for Review &amp; Next</button>
+        <button class="btn btn-light" onclick="clearResp()">Clear Response</button>
+        <button class="btn btn-light" onclick="go(cur-1)">Previous</button>
+        <span class="sp"></span>
+        <button class="btn btn-blue" onclick="saveNext()">Save &amp; Next</button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="legend" id="legend"></div>
+      <div class="sec">Mathematical Abilities</div>
+      <div class="palwrap"><div class="pal" id="pal"></div></div>
+      <div class="submitbox"><button class="btn btn-green" style="width:100%" onclick="confirmSubmit()">Submit Test</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- =============== RESULT =============== -->
+<div id="result" class="hidden">
+  <div class="topbar">
+    <div class="ttl"><span class="back" style="cursor:pointer" onclick="showSummary()">☰</span>
+      <div><h2>Tests</h2><div class="sub">The Pundit Maths Mock 04 – Maths • Solutions &amp; Analysis</div></div></div>
+    <div class="an-btn" style="cursor:pointer" onclick="showSummary()">ANALYTICS</div>
+  </div>
+  <div class="sectionbar"><b>SECTIONS</b><span>Test</span>
+    <span style="background:none;color:#222;margin-left:auto;padding:0;font-weight:normal">Score: <b id="scoreTop"></b></span></div>
+  <div class="layout">
+    <div class="main">
+      <div class="rqhead" id="rhead"></div>
+      <div class="qbody">
+        <div class="qtext" id="rtext"></div>
+        <div id="ropts"></div>
+        <div class="vsrow"><button class="vsbtn" onclick="toggleSol()">👁 View Shortcut Trick</button><span>Click here to see the shortcut and steps</span></div>
+        <div id="rsol" class="hidden"></div>
+      </div>
+      <div class="qfoot">
+        <button class="btn btn-light" onclick="rgo(rc-1)">Previous</button>
+        <span class="sp"></span>
+        <button class="btn btn-light" onclick="rgo(rc+1)">Next</button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="cnt" id="rcnt"></div>
+      <div class="sec">SECTION : Test</div>
+      <div class="palwrap"><div class="pal" id="rpal"></div></div>
+      <div class="submitbox" style="display:flex;gap:8px">
+        <button class="btn btn-light" style="flex:1" onclick="showSummary()">Summary</button>
+        <button class="btn btn-light" style="flex:1" onclick="location.reload()">Retake</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden"><div class="mbox" id="mbox"></div></div>
+
+<script>
+/* ===== CONFIG ===== */
+var MARK_RIGHT = 3, MARK_WRONG = 1, DURATION = 1800; // seconds
+
+/* ===== QUESTION DATA ===== */
+var Q = [
+ {
+  "c": "Partnership",
+  "q": "In a business partnership, A invested Rs 80,000, B invested Rs 1,20,000, and C invested Rs 1,60,000. After 1 year, B withdrew Rs 30,000 from his capital. At the end of 3 years, the total profit earned is Rs 85,000. Find the profit share of C.",
+  "o": [
+   "Rs 35,000",
+   "Rs 40,000",
+   "Rs 45,000",
+   "Rs 50,000"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Profit ∝ capital × time. Work in ₹ thousand × months.<br><br><b>Step 1:</b> A = 80 × 36 = 2880<br><b>Step 2:</b> B = 120 × 12 + 90 × 24 = 1440 + 2160 = 3600<br><b>Step 3:</b> C = 160 × 36 = 5760<br><b>Step 4:</b> Ratio = 2880 : 3600 : 5760 = 4 : 5 : 8<br><b>Step 5:</b> C's share = 8/17 × 85,000 = ₹40,000"
+ },
+ {
+  "c": "Permutation & Combination",
+  "q": "In how many distinct ways can 8 people be seated around a circular table such that two specific people always sit next to each other?",
+  "o": [
+   "720",
+   "1,440",
+   "2,880",
+   "5,040"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Glue the pair into one unit, then arrange in a circle and multiply by 2.<br><br><b>Step 1:</b> Treat the 2 people as 1 unit ⇒ 7 units in a circle<br><b>Step 2:</b> Circular arrangements = (7 − 1)! = 720<br><b>Step 3:</b> The pair can swap places internally: × 2<br><b>Step 4:</b> Total = 720 × 2 = 1,440"
+ },
+ {
+  "c": "Coordinate Geometry",
+  "q": "The vertices of a triangle are A(0, 0), B(6, 8), and C(4, 0). If the circumcenter of the triangle is at the point (3, 7/2), find the distance between its centroid and circumcenter.",
+  "o": [
+   "√29 / 6",
+   "√31 / 6",
+   "5 / 6",
+   "√23 / 6"
+  ],
+  "a": 0,
+  "s": "<b>⚡ Shortcut Trick:</b> Centroid = average of the vertices; then apply the distance formula to the circumcenter given in the question.<br><br><b>Step 1:</b> Centroid = ((0+6+4)/3, (0+8+0)/3) = (10/3, 8/3)<br><b>Step 2:</b> Δx = 3 − 10/3 = −1/3; Δy = 7/2 − 8/3 = 5/6<br><b>Step 3:</b> Distance = √(1/9 + 25/36) = √(29/36)<br><b>Step 4:</b> = √29 / 6<br><i>Note: the true circumcenter of this triangle is (2, 19/4), so the given point is not exact; the question says to use (3, 7/2), and the official key agrees with this working.</i>"
+ },
+ {
+  "c": "Simplification",
+  "q": "Find the unit digit of the evaluated arithmetic expression: 158 × 1500 × 3.5 + 1131 × 13 − 1717 × 11 + 2528.",
+  "o": [
+   "4",
+   "6",
+   "8",
+   "2"
+  ],
+  "a": 0,
+  "s": "<b>⚡ Shortcut Trick:</b> Only unit digits matter. 1500 × 3.5 = 5250 ends in 0, so the first product ends in 0.<br><br><b>Step 1:</b> 158 × 1500 × 3.5 = 158 × 5250 ⇒ unit digit 0<br><b>Step 2:</b> 1131 × 13 ⇒ 1 × 3 ⇒ unit digit 3<br><b>Step 3:</b> 1717 × 11 ⇒ 7 × 1 ⇒ unit digit 7<br><b>Step 4:</b> 2528 ⇒ unit digit 8<br><b>Step 5:</b> 0 + 3 − 7 + 8 = 4<br><b>Step 6:</b> Check: exact value = 8,27,844 ⇒ unit digit 4<br><i>Note: the printed answer key shows (C) 8, which does not match the exact value. Correct answer is (A) 4.</i>"
+ },
+ {
+  "c": "Alligation & Mixture",
+  "q": "An alloy contains Zinc, Copper, and Tin in the ratio 8 : 7 : 5. A second alloy contains Copper, Tin, and Lead in the ratio 1 : 2 : 6. If equal weights of both alloys are melted and thoroughly mixed together, find the quantity of Zinc per kilogram in the resulting alloy.",
+  "o": [
+   "0.15 kg",
+   "0.20 kg",
+   "0.25 kg",
+   "0.18 kg"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Only the first alloy has zinc, and it is half of the mixture.<br><br><b>Step 1:</b> Zinc in alloy 1 = 8/20 = 0.4 kg per kg<br><b>Step 2:</b> Alloy 2 has no zinc<br><b>Step 3:</b> Equal weights ⇒ zinc in mixture = 0.4 × ½ = 0.2 kg per kg"
+ },
+ {
+  "c": "Number System",
+  "q": "A positive integer n leaves a remainder of 7 when divided by 13. What will be the remainder when the expression (2n² + 21 + 1) is divided by 13?",
+  "o": [
+   "1",
+   "3",
+   "5",
+   "7"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Replace n by its remainder 7 and reduce mod 13.<br><br><b>Step 1:</b> n ≡ 7 (mod 13)<br><b>Step 2:</b> 2n² + 21 + 1 ≡ 2(49) + 22 = 120<br><b>Step 3:</b> 120 = 9 × 13 + 3<br><b>Step 4:</b> Remainder = 3<br><i>Expression taken exactly as printed.</i>"
+ },
+ {
+  "c": "Time & Work",
+  "q": "Meena is three times as efficient as Karan. Working together, they can complete a project in 36 days. In how many days can Meena alone complete the entire project?",
+  "o": [
+   "42 days",
+   "48 days",
+   "54 days",
+   "60 days"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Efficiency 3 : 1 ⇒ together 4 units/day.<br><br><b>Step 1:</b> Total work = 4 × 36 = 144 units<br><b>Step 2:</b> Meena = 3 units/day<br><b>Step 3:</b> Days = 144 / 3 = 48"
+ },
+ {
+  "c": "Compound Interest",
+  "q": "A sum of money invested at compound interest grows to 5 times its original value in 10 years. In how many years will it become 25 times its original value at the same rate of interest?",
+  "o": [
+   "15 years",
+   "20 years",
+   "25 years",
+   "30 years"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> 25 = 5², so the time simply doubles.<br><br><b>Step 1:</b> (1 + r)¹⁰ = 5<br><b>Step 2:</b> (1 + r)ⁿ = 25 = 5² = (1 + r)²⁰<br><b>Step 3:</b> n = 20 years"
+ },
+ {
+  "c": "Geometry (Pythagoras)",
+  "q": "A straight ladder of length 169 m is placed against a vertical wall. The foot of the ladder is 120 m away from the base of the wall. What is the height of the wall reached by the top of the ladder?",
+  "o": [
+   "115 m",
+   "119 m",
+   "123 m",
+   "127 m"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Use h² = (169 − 120)(169 + 120).<br><br><b>Step 1:</b> h² = 169² − 120² = 49 × 289<br><b>Step 2:</b> h = 7 × 17 = 119 m<br><b>Step 3:</b> (Triplet 119, 120, 169)"
+ },
+ {
+  "c": "Profit & Loss",
+  "q": "A shopkeeper marks the price of a shirt at Rs 800. After allowing a trade discount of 15%, he still makes a net profit of 20%. What is the cost price of the shirt?",
+  "o": [
+   "Rs 540.00",
+   "Rs 566.67",
+   "Rs 580.00",
+   "Rs 600.00"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> SP first, then CP = SP ÷ 1.2.<br><br><b>Step 1:</b> SP = 800 × 85% = ₹680<br><b>Step 2:</b> CP = 680 × 100/120<br><b>Step 3:</b> CP = ₹566.67"
+ },
+ {
+  "c": "Compound Interest",
+  "q": "The population of a city increased from 5,000 to 6,962 over a period of 2 years. Find the constant annual percentage rate of population increase compounded annually.",
+  "o": [
+   "14%",
+   "16%",
+   "18%",
+   "20%"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Ratio 6962/5000 = 1.3924 = 1.18².<br><br><b>Step 1:</b> 6962 / 5000 = 1.3924<br><b>Step 2:</b> 1.18² = 1.3924<br><b>Step 3:</b> Rate = 18%"
+ },
+ {
+  "c": "Time, Speed & Distance",
+  "q": "A and B run along a circular track of circumference 1200 m with speeds of 180 m/min and 120 m/min respectively. Starting simultaneously from the same point in the same direction, how many times will A meet B before A completes 10 full rounds?",
+  "o": [
+   "2",
+   "3",
+   "4",
+   "5"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Same direction ⇒ relative speed = difference.<br><br><b>Step 1:</b> Relative speed = 180 − 120 = 60 m/min<br><b>Step 2:</b> Meeting interval = 1200 / 60 = 20 min<br><b>Step 3:</b> A's 10 rounds = 12000 / 180 = 66.67 min<br><b>Step 4:</b> Meetings at 20, 40, 60 min (80 is beyond 66.67) ⇒ 3 meetings"
+ },
+ {
+  "c": "Geometry (Quadrilaterals)",
+  "q": "The quadrilateral formed by connecting the consecutive mid-points of the four sides of any trapezium is always a:",
+  "o": [
+   "Rectangle",
+   "Square",
+   "Rhombus",
+   "Parallelogram"
+  ],
+  "a": 3,
+  "s": "<b>⚡ Shortcut Trick:</b> Varignon's theorem: mid-point quadrilateral of ANY quadrilateral is a parallelogram.<br><br><b>Step 1:</b> It becomes a rhombus only if the diagonals are equal (isosceles trapezium)<br><b>Step 2:</b> For a general trapezium it is always a parallelogram"
+ },
+ {
+  "c": "Algebra",
+  "q": "If a + b + c = 9, abc = 3, and ab + bc + ca = 26, find the numerical value of a³ + b³ + c³.",
+  "o": [
+   "27",
+   "36",
+   "45",
+   "54"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> a³ + b³ + c³ = 3abc + (a+b+c)(a²+b²+c² − ab − bc − ca).<br><br><b>Step 1:</b> a² + b² + c² = 9² − 2(26) = 29<br><b>Step 2:</b> 29 − 26 = 3<br><b>Step 3:</b> a³ + b³ + c³ = 3(3) + 9 × 3 = 9 + 27 = 36"
+ },
+ {
+  "c": "Statistics",
+  "q": "Find the variance of the discrete frequency distribution with values x = {1, 2, 3, 4, 5} and corresponding frequencies f = {2, 3, 4, 3, 2}.",
+  "o": [
+   "1.25",
+   "1.42",
+   "1.57",
+   "1.75"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Data is symmetric, so mean = 3.<br><br><b>Step 1:</b> N = 2+3+4+3+2 = 14; mean = 3<br><b>Step 2:</b> Σf(x − 3)² = 2(4) + 3(1) + 4(0) + 3(1) + 2(4) = 22<br><b>Step 3:</b> Variance = 22 / 14 ≈ 1.57"
+ },
+ {
+  "c": "Ratio & Proportion",
+  "q": "A bag contains Rs 1, Rs 2, and Rs 5 coins in the ratio 2 : 3 : 4. If the total money in the bag amounts to Rs 588, find the total number of Rs 5 coins present in the bag.",
+  "o": [
+   "72",
+   "84",
+   "96",
+   "108"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Convert the coin ratio into a money ratio.<br><br><b>Step 1:</b> Money ratio = 2×1 : 3×2 : 4×5 = 2 : 6 : 20<br><b>Step 2:</b> Total = 28 units = ₹588 ⇒ 1 unit = ₹21<br><b>Step 3:</b> Number of ₹5 coins = 4 × 21 = 84"
+ },
+ {
+  "c": "Probability",
+  "q": "Four persons are chosen at random from a group consisting of 3 men, 2 women, and 4 children. What is the probability that exactly 2 of the chosen persons are children?",
+  "o": [
+   "5 / 21",
+   "10 / 21",
+   "13 / 21",
+   "15 / 21"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Favourable ÷ total using combinations.<br><br><b>Step 1:</b> Total = ⁹C₄ = 126<br><b>Step 2:</b> Exactly 2 children = ⁴C₂ × ⁵C₂ = 6 × 10 = 60<br><b>Step 3:</b> P = 60 / 126 = 10 / 21"
+ },
+ {
+  "c": "Mensuration",
+  "q": "A right pyramid stands on a square base with base side 12 cm. If its slant height is 10 cm, find the total surface area of the pyramid.",
+  "o": [
+   "360 cm²",
+   "384 cm²",
+   "412 cm²",
+   "432 cm²"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> TSA = base + ½ × perimeter × slant height.<br><br><b>Step 1:</b> Base = 12² = 144<br><b>Step 2:</b> Lateral = ½ × (4 × 12) × 10 = 240<br><b>Step 3:</b> TSA = 144 + 240 = 384 cm²"
+ },
+ {
+  "c": "Trigonometry (Angles)",
+  "q": "What is the degree measure corresponding to an angle of 3 radians (taking π = 22/7)?",
+  "o": [
+   "158°",
+   "165°",
+   "172°",
+   "180°"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Degrees = radians × 180 / π.<br><br><b>Step 1:</b> 3 × 180 × 7 / 22 = 3780 / 22<br><b>Step 2:</b> ≈ 171.8°<br><b>Step 3:</b> ≈ 172°"
+ },
+ {
+  "c": "Time, Speed & Distance",
+  "q": "Travelling at an average speed of 45 km/h, a commuter reaches his office 4 minutes late. Travelling at 60 km/h, he arrives 5 minutes early. What is the distance from his starting point to the office?",
+  "o": [
+   "24 km",
+   "27 km",
+   "30 km",
+   "33 km"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Time difference = 4 + 5 = 9 min = 3/20 h.<br><br><b>Step 1:</b> d/45 − d/60 = 3/20<br><b>Step 2:</b> d × (4 − 3)/180 = 3/20<br><b>Step 3:</b> d = 180 × 3/20 = 27 km"
+ },
+ {
+  "c": "Mensuration",
+  "q": "Half the perimeter of a rectangular park whose length is 12 m greater than its width is 56 m. Find the total area of the park.",
+  "o": [
+   "714 m²",
+   "748 m²",
+   "782 m²",
+   "816 m²"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> l + w = 56 and l − w = 12.<br><br><b>Step 1:</b> l = (56 + 12)/2 = 34; w = (56 − 12)/2 = 22<br><b>Step 2:</b> Area = 34 × 22 = 748 m²"
+ },
+ {
+  "c": "Profit & Loss",
+  "q": "If the selling price of 18 identical articles is strictly equal to the cost price of 24 such articles, what is the profit percentage earned by the seller?",
+  "o": [
+   "25.00%",
+   "30.00%",
+   "33.33%",
+   "36.67%"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> SP : CP per article = 24 : 18.<br><br><b>Step 1:</b> Same price for 18 SP and 24 CP ⇒ SP/CP = 24/18 = 4/3<br><b>Step 2:</b> Profit = (4/3 − 1) × 100 = 33.33%"
+ },
+ {
+  "c": "Mensuration",
+  "q": "A vertical cylindrical tank has a base radius of 21 cm. If 924 litres of water are discharged from the tank, by how much does the water level drop in meters? (1 litre = 1,000 cm³)",
+  "o": [
+   "5.33 m",
+   "6.00 m",
+   "6.67 m",
+   "7.25 m"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Drop = volume ÷ base area.<br><br><b>Step 1:</b> Base area = 22/7 × 21 × 21 = 1386 cm²<br><b>Step 2:</b> Volume = 924 × 1000 = 9,24,000 cm³<br><b>Step 3:</b> Drop = 924000 / 1386 = 666.67 cm = 6.67 m"
+ },
+ {
+  "c": "Algebra",
+  "q": "If x + 1/x = 5, find the numerical value of the polynomial expression x⁴ + 1/x⁴.",
+  "o": [
+   "523",
+   "525",
+   "527",
+   "529"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Square twice, subtracting 2 each time.<br><br><b>Step 1:</b> x² + 1/x² = 5² − 2 = 23<br><b>Step 2:</b> x⁴ + 1/x⁴ = 23² − 2 = 529 − 2 = 527"
+ },
+ {
+  "c": "Average",
+  "q": "The average age of 8 persons in a group is 30 years. If one member aged 50 years is replaced by a newcomer, the average age of the group decreases by 2 years. Find the age of the newcomer.",
+  "o": [
+   "32 years",
+   "34 years",
+   "36 years",
+   "38 years"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Total fall = 8 × 2 = 16 years.<br><br><b>Step 1:</b> Newcomer = 50 − 16 = 34 years"
+ },
+ {
+  "c": "Geometry (Circles)",
+  "q": "If the distance d between the centres of two circles of radii R₁ and R₂ is strictly less than |R₁ − R₂|, how many distinct common tangents can be drawn to both circles?",
+  "o": [
+   "0",
+   "1",
+   "2",
+   "4"
+  ],
+  "a": 0,
+  "s": "<b>⚡ Shortcut Trick:</b> d < |R₁ − R₂| ⇒ one circle lies completely inside the other.<br><br><b>Step 1:</b> Circles do not touch or intersect<br><b>Step 2:</b> No tangent can touch both ⇒ 0 common tangents"
+ },
+ {
+  "c": "Profit & Loss",
+  "q": "A trader bought 200 smartphones at Rs 8,000 each and spent Rs 80,000 on transport and Rs 20,000 on insurance. He marked each phone 25% above effective cost price. He sold 120 units at marked price, 50 at a 10% discount, and 30 at a 20% discount. Paying a 5% tax on gross sales, find his approximate net profit percentage.",
+  "o": [
+   "8.5%",
+   "10.0%",
+   "12.5%",
+   "15.0%"
+  ],
+  "a": 2,
+  "s": "<b>⚡ Shortcut Trick:</b> Take effective cost per phone ₹8,500 and marked price ₹10,625.<br><br><b>Step 1:</b> Total cost = 16,00,000 + 80,000 + 20,000 = ₹17,00,000<br><b>Step 2:</b> Effective CP = 8,500; MP = 1.25 × 8,500 = 10,625<br><b>Step 3:</b> Sales = 120(10625) + 50(9562.5) + 30(8500) = 12,75,000 + 4,78,125 + 2,55,000 = ₹20,08,125<br><b>Step 4:</b> After 5% tax = 20,08,125 × 0.95 ≈ ₹19,07,719<br><b>Step 5:</b> Profit ≈ 2,07,719 ⇒ 2,07,719 / 17,00,000 ≈ 12.2% ≈ 12.5%"
+ },
+ {
+  "c": "Geometry (Circles)",
+  "q": "In two concentric circles, a chord of the larger circle of length 24 cm touches the smaller circle as a tangent. What is the area of the annular ring between the two circles?",
+  "o": [
+   "120π cm²",
+   "144π cm²",
+   "168π cm²",
+   "196π cm²"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Ring area = π × (half-chord)².<br><br><b>Step 1:</b> Tangent point is the chord's midpoint ⇒ half-chord = 12<br><b>Step 2:</b> R² − r² = 12² = 144<br><b>Step 3:</b> Area = π(R² − r²) = 144π cm²"
+ },
+ {
+  "c": "Simple Interest",
+  "q": "The simple interest accumulated on a certain sum of money over 9 years is equal to 4/7 of the principal sum. Find the annual rate of interest.",
+  "o": [
+   "5.85%",
+   "6.35%",
+   "6.75%",
+   "7.15%"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Rate = (SI/P) ÷ time × 100.<br><br><b>Step 1:</b> R = (4/7) × 100 / 9<br><b>Step 2:</b> = 400 / 63<br><b>Step 3:</b> ≈ 6.35%"
+ },
+ {
+  "c": "Geometry (Circles)",
+  "q": "Two parallel chords EF and GH of lengths 40 cm and 16 cm are drawn on opposite sides of the centre O of a circle. If the perpendicular distance between the two chords is 25 cm, find the radius of the circle.",
+  "o": [
+   "18.5 cm",
+   "20.8 cm",
+   "23.2 cm",
+   "25.0 cm"
+  ],
+  "a": 1,
+  "s": "<b>⚡ Shortcut Trick:</b> Let the distances from the centre be d₁ and d₂ with d₁ + d₂ = 25.<br><br><b>Step 1:</b> Half-chords are 20 and 8: R² = 20² + d₁² = 8² + d₂²<br><b>Step 2:</b> d₂² − d₁² = 400 − 64 = 336 ⇒ (d₂ − d₁)(25) = 336 ⇒ d₂ − d₁ = 13.44<br><b>Step 3:</b> d₂ = 19.22, d₁ = 5.78<br><b>Step 4:</b> R² = 400 + 5.78² ≈ 433.4 ⇒ R ≈ 20.8 cm"
+ }
+];
+
+/* ===== STATE ===== */
+var N = Q.length, cur = 0, rc = 0, remaining = DURATION, tick = null;
+var ans = [], visited = [], marked = [], tspent = [], name = "Candidate", submitted = false;
+for (var i=0;i<N;i++){ans.push(null);visited.push(false);marked.push(false);tspent.push(0);}
+var L = ["A","B","C","D"];
+function $(id){return document.getElementById(id);}
+function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),r=s%60;return (m<10?"0":"")+m+":"+(r<10?"0":"")+r;}
+
+/* ===== TEST ===== */
+function startTest(){
+  $("intro").classList.add("hidden"); $("test").classList.remove("hidden");
+  renderTest();
+  tick = setInterval(function(){
+    remaining--; tspent[cur]++;
+    $("timer").textContent = fmt(remaining);
+    if (remaining<=0){ clearInterval(tick); finish(); }
+  },1000);
+}
+function stateOf(i){
+  if (!visited[i]) return "nv";
+  var a = ans[i]!==null, m = marked[i];
+  if (a&&m) return "ar"; if (m) return "mr"; if (a) return "an"; return "na";
+}
+function renderTest(){
+  visited[cur]=true;
+  var q=Q[cur];
+  $("qno").textContent="Question No. "+(cur+1);
+  $("qtext").innerHTML=q.q;
+  var h="";
+  q.o.forEach(function(t,i){
+    h+='<label class="opt"><input type="radio" name="o" '+(ans[cur]===i?"checked":"")+' onchange="ans['+cur+']='+i+';renderPal()"><span><b>('+L[i]+')</b>&nbsp; '+t+'</span></label>';
+  });
+  $("opts").innerHTML=h;
+  renderPal();
+}
+function renderPal(){
+  var h="",c={nv:0,na:0,an:0,mr:0,ar:0};
+  for (var i=0;i<N;i++){var s=stateOf(i);c[s]++;h+='<button class="pb '+s+(i===cur?" cur":"")+'" onclick="go('+i+')">'+(i+1)+'</button>';}
+  $("pal").innerHTML=h;
+  $("legend").innerHTML=
+   '<span class="lg"><span class="pb an">'+c.an+'</span>Answered</span>'+
+   '<span class="lg"><span class="pb na">'+c.na+'</span>Not Answered</span>'+
+   '<span class="lg"><span class="pb nv">'+c.nv+'</span>Not Visited</span>'+
+   '<span class="lg"><span class="pb mr">'+c.mr+'</span>Marked</span>'+
+   '<span class="lg" style="grid-column:1/3"><span class="pb ar">'+c.ar+'</span>Answered &amp; Marked (will be evaluated)</span>';
+}
+function go(i){ if(i<0||i>=N) return; cur=i; renderTest(); }
+function saveNext(){ marked[cur]=marked[cur]; if(cur<N-1) go(cur+1); else renderPal(); }
+function markNext(){ marked[cur]=true; if(cur<N-1) go(cur+1); else renderPal(); }
+function clearResp(){ ans[cur]=null; marked[cur]=false; renderTest(); }
+
+function confirmSubmit(){
+  var a=0; ans.forEach(function(x){if(x!==null)a++;});
+  $("mbox").innerHTML='<h3>Submit Test?</h3><p style="line-height:1.7">Answered: <b>'+a+'</b> &nbsp;|&nbsp; Not answered: <b>'+(N-a)+'</b> &nbsp;|&nbsp; Time left: <b>'+fmt(remaining)+'</b></p><p style="margin-top:12px">Once submitted, you cannot change your answers.</p><p style="margin-top:16px;display:flex;gap:10px"><button class="btn btn-green" onclick="finish()">Yes, Submit</button><button class="btn btn-light" onclick="closeModal()">Go Back</button></p>';
+  $("modal").classList.remove("hidden");
+}
+function closeModal(){ $("modal").classList.add("hidden"); }
+
+/* ===== RESULT ===== */
+function statusOf(i){ if(ans[i]===null) return "skip"; return ans[i]===Q[i].a?"ok":"bad"; }
+function stats(){
+  var s={ok:0,bad:0,skip:0,score:0,time:0};
+  for(var i=0;i<N;i++){var t=statusOf(i);s[t]++; s.time+=tspent[i];}
+  s.score = s.ok*MARK_RIGHT - s.bad*MARK_WRONG;
+  return s;
+}
+function finish(){
+  if(submitted) return; submitted=true; clearInterval(tick); closeModal();
+  $("test").classList.add("hidden"); $("result").classList.remove("hidden");
+  var s=stats();
+  try{ logResult({test:"The Pundit Maths Mock 04", subject:"Mathematics", score:s.score, total:N*MARK_RIGHT, seconds:s.time, wrong:qlists().wrong.join(", "), skipped:qlists().skip.join(", ")}); }catch(e){}
+  $("scoreTop").textContent=s.score+" / "+(N*MARK_RIGHT);
+  $("rcnt").innerHTML='<span><em style="background:#2eaa5a;border-color:#2eaa5a">'+s.ok+'</em> Correct</span><span><em style="background:#fff;color:#000">'+s.skip+'</em> Unattempted</span><span><em style="background:#c0392b;border-color:#c0392b">'+s.bad+'</em> Incorrect</span>';
+  rc=0; renderRes(); window.scrollTo(0,0); showSummary();
+}
+function renderRes(){
+  var q=Q[rc], u=ans[rc], st=statusOf(rc);
+  var mk = st==="ok"?"+"+MARK_RIGHT : (st==="bad"?"−"+MARK_WRONG:"0");
+  var bl = st==="ok"?"Correct":(st==="bad"?"Incorrect":"Skipped");
+  $("rhead").innerHTML='<b>Question No.'+(rc+1)+'</b><span class="badge b-'+st+'">'+bl+'</span><span>⏱ You: <b style="color:'+(tspent[rc]>90?'#c0392b':'inherit')+'">'+fmt(tspent[rc])+'</b>'+(tspent[rc]>90?' <span class="badge b-bad" style="background:#e67e22">Over 1.5 min</span>':'')+'</span><span style="color:#aaa">|</span><span>Marks <span class="mk" style="background:'+(st==="ok"?"#2eaa5a":st==="bad"?"#c0392b":"#777")+'">'+mk+'</span></span><span style="margin-left:auto;color:#667">Topic: '+q.c+'</span>';
+  $("rtext").innerHTML=q.q;
+  var h="";
+  q.o.forEach(function(t,i){
+    var cls="ropt", tag="";
+    if(i===q.a){cls+=" right"; tag='<span class="tag g">✓ Correct Answer'+(u===i?" (Your Answer)":"")+'</span>';}
+    else if(i===u){cls+=" wrong"; tag='<span class="tag r">✗ Your Answer</span>';}
+    h+='<div class="'+cls+'"><span class="rd"></span><span>('+L[i]+') '+t+'</span>'+tag+'</div>';
+  });
+  $("ropts").innerHTML=h;
+  $("rsol").className="hidden";
+  $("rsol").innerHTML='<div class="solbox"><h4>Shortcut Trick</h4>'+q.s+'<div class="ans">Hence, option ('+L[q.a]+') is correct.</div></div>';
+  var p="";
+  for(var i=0;i<N;i++){p+='<button class="rp '+statusOf(i)+(i===rc?" cursel":"")+'" onclick="rgo('+i+')">'+(i+1)+'</button>';}
+  $("rpal").innerHTML=p;
+}
+function rgo(i){ if(i<0||i>=N) return; rc=i; renderRes(); }
+function toggleSol(){ $("rsol").classList.toggle("hidden"); }
+
+function qlists(){
+  var w=[],k=[];
+  for(var i=0;i<N;i++){var t=statusOf(i); if(t==="bad")w.push(i+1); else if(t==="skip")k.push(i+1);}
+  return {wrong:w,skip:k};
+}
+function showSummary(){
+  var ql=qlists();
+  var s=stats(), att=s.ok+s.bad, acc=att?Math.round(100*s.ok/att):0;
+  var avg=s.time/N;
+  var cats={}, order=[];
+  for(var i=0;i<N;i++){var c=Q[i].c; if(!cats[c]){cats[c]={n:0,ok:0,bad:0,sk:0,t:0};order.push(c);} var o=cats[c]; o.n++; o.t+=tspent[i]; var st=statusOf(i); if(st==="ok")o.ok++; else if(st==="bad")o.bad++; else o.sk++;}
+  var rows="";
+  order.forEach(function(c){var o=cats[c]; rows+='<tr><td>'+c+'</td><td>'+o.n+'</td><td>'+o.ok+'</td><td>'+o.bad+'</td><td>'+o.sk+'</td><td>'+fmt(o.t)+'</td></tr>';});
+  var idx=[]; for(var j=0;j<N;j++)idx.push(j);
+  var slow=idx.slice().sort(function(x,y){return tspent[y]-tspent[x];}).slice(0,5);
+  var over=idx.filter(function(k){return tspent[k]>90;});
+  var slowRows=""; slow.forEach(function(k){var st=statusOf(k); slowRows+='<tr><td>Q'+(k+1)+' · '+Q[k].c+'</td><td style="color:'+(tspent[k]>90?'#c0392b':'inherit')+'"><b>'+fmt(tspent[k])+'</b></td><td>'+(st==="ok"?"Correct":st==="bad"?"Incorrect":"Skipped")+'</td></tr>';});
+  var grid='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0 14px">';
+  for(var m=0;m<N;m++){var st2=statusOf(m), slowQ=tspent[m]>90;
+    grid+='<div style="border:1px solid '+(slowQ?'#c0392b':'#cfd8e0')+';background:'+(slowQ?'#fdeaea':'#f7fbfd')+';border-radius:4px;padding:5px 4px;text-align:center;font-size:12px"><b>Q'+(m+1)+'</b> <span style="color:'+(st2==="ok"?"#1f8a46":st2==="bad"?"#c0392b":"#777")+'">'+(st2==="ok"?"✓":st2==="bad"?"✗":"–")+'</span><br>'+fmt(tspent[m])+'</div>';}
+  grid+='</div>';
+  $("mbox").innerHTML='<h3>Result Summary</h3>'+
+   '<table><tr><th>Score</th><th>Attempted</th><th>Correct</th><th>Incorrect</th><th>Accuracy</th></tr><tr><td><b>'+s.score+' / '+(N*MARK_RIGHT)+'</b></td><td>'+att+' / '+N+'</td><td style="color:#1f8a46"><b>'+s.ok+'</b></td><td style="color:#c0392b"><b>'+s.bad+'</b></td><td>'+acc+'%</td></tr></table>'+
+   '<h3 style="font-size:15px">Time Analysis</h3>'+
+   '<table><tr><th>Total Time</th><th>Average / Question</th><th>Questions over 1.5 min</th></tr><tr><td><b>'+fmt(s.time)+'</b> of '+fmt(DURATION)+'</td><td><b>'+fmt(avg)+'</b></td><td style="color:'+(over.length?'#c0392b':'#1f8a46')+'"><b>'+(over.length?over.map(function(k){return "Q"+(k+1);}).join(", "):"None")+'</b></td></tr></table>'+
+   '<p style="font-size:13px;color:#555;margin-bottom:4px">Time spent on each question (red = over 1.5 min):</p>'+grid+
+   '<h3 style="font-size:15px">Slowest Questions</h3><table><tr><th>Question</th><th>Time</th><th>Result</th></tr>'+slowRows+'</table>'+
+   '<h3 style="font-size:15px">Topic-wise Analysis</h3><table><tr><th>Topic</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Time</th></tr>'+rows+'</table>'+
+   '<h3 style="font-size:15px">Question-wise</h3><table><tr><th style="width:90px;text-align:left">Wrong</th><td style="color:#c0392b">'+(ql.wrong.join(", ")||"None")+'</td></tr><tr><th style="text-align:left">Skipped</th><td>'+(ql.skip.join(", ")||"None")+'</td></tr></table>'+
+   '<button class="btn btn-primary" onclick="closeModal()">Review Shortcut Tricks</button>';
+  $("modal").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
