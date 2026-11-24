@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SSC CGL Tier-2 Mock 5 – Mathematical Abilities</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f2f5f8;color:#222;font-size:15px}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+sub,sup{font-size:.75em}
+/* ---------- intro ---------- */
+#intro{max-width:820px;margin:30px auto;background:#fff;border:1px solid #cfd8e0;border-radius:6px;overflow:hidden}
+#intro header{background:#0f96c7;color:#fff;padding:18px 24px}
+#intro header h1{font-size:20px}
+#intro header p{font-size:13px;opacity:.9;margin-top:4px}
+#intro .body{padding:22px 24px;line-height:1.6}
+#intro ul{margin:10px 0 14px 22px}
+#intro .meta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+#intro .meta div{background:#eaf6fb;border:1px solid #bfe3f2;border-radius:4px;padding:8px 14px;font-size:13px}
+#intro input{padding:9px 12px;border:1px solid #aab;border-radius:4px;width:260px;font-size:15px}
+.legend-row{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;font-size:13px;align-items:center}
+.btn{border:0;border-radius:3px;padding:10px 22px;font-size:14px;font-weight:bold}
+.btn-primary{background:#0f96c7;color:#fff}
+.btn-green{background:#2eaa5a;color:#fff}
+.btn-purple{background:#7b4cb8;color:#fff}
+.btn-light{background:#e3ecf2;color:#234;border:1px solid #b9c8d3}
+.btn-blue{background:#1d5fa8;color:#fff}
+/* ---------- palette shapes ---------- */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 8px;justify-items:center}
+.pb{width:40px;height:34px;border:0;font-size:14px;font-weight:bold;color:#fff;position:relative}
+.nv{background:#dfe3e6;color:#333;border:1px solid #b8bec3;border-radius:4px}
+.na{background:#e0463a;border-radius:4px 4px 16px 16px}
+.an{background:#2eaa5a;border-radius:16px 16px 4px 4px}
+.mr{background:#7b4cb8;border-radius:50%;width:36px;height:36px}
+.ar{background:#7b4cb8;border-radius:50%;width:36px;height:36px}
+.ar::after{content:"";position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:#2eaa5a;border:2px solid #fff}
+.cur{outline:3px solid #f5a623;outline-offset:1px}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.lg .pb{width:28px;height:26px;font-size:12px;pointer-events:none}
+.lg .mr,.lg .ar{width:27px;height:27px}
+/* ---------- test screen ---------- */
+#test{display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#0f96c7;color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar h2{font-size:16px}
+.topbar .sub{font-size:12px;opacity:.9}
+.timer{background:#fff;color:#c0392b;font-weight:bold;padding:6px 14px;border-radius:4px;font-size:17px;font-variant-numeric:tabular-nums}
+.sectionbar{background:#fff;border-bottom:1px solid #d5dde3;padding:8px 18px;font-size:13px;display:flex;gap:10px;align-items:center}
+.sectionbar span{background:#1d6a8a;color:#fff;padding:7px 38px;border-radius:3px;font-weight:bold}
+.layout{display:flex;flex:1;align-items:stretch}
+.main{flex:1;min-width:0;background:#fff;display:flex;flex-direction:column}
+.qhead{padding:12px 20px;border-bottom:1px solid #e1e6ea;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:6px}
+.qhead b{font-size:15px}
+.qbody{padding:20px 24px;flex:1;overflow:auto}
+.qtext{font-size:16px;line-height:1.6;margin-bottom:18px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;margin:6px 0;border:1px solid transparent;border-radius:5px;cursor:pointer;font-size:15.5px;line-height:1.45}
+.opt:hover{background:#f3f9fc}
+.opt input{margin-top:4px;transform:scale(1.2)}
+.qfoot{border-top:1px solid #dfe4e8;background:#f6f8fa;padding:12px 20px;display:flex;gap:10px;flex-wrap:wrap}
+.qfoot .sp{flex:1}
+.side{width:310px;background:#dcebf4;border-left:1px solid #c3d6e2;display:flex;flex-direction:column}
+.side .prof{background:#fff;padding:12px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #cdd}
+.avatar{width:42px;height:42px;border-radius:50%;background:#0f96c7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
+.side .legend{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;border-bottom:1px solid #c3d6e2}
+.side .sec{background:#a9cfe3;padding:7px 12px;font-weight:bold;font-size:13px}
+.side .palwrap{padding:14px 10px;overflow:auto;flex:1}
+.side .submitbox{padding:10px;background:#cfe2ee}
+table.dt{border-collapse:collapse;margin:10px 0;font-size:14px}
+table.dt th,table.dt td{border:1px solid #9aa;padding:5px 10px;text-align:center}
+table.dt th{background:#e6f0f6}
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:14px}
+.mbox{background:#fff;border-radius:6px;max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:22px}
+.mbox h3{margin-bottom:12px;color:#0f6f93}
+.mbox table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:14px}
+.mbox th,.mbox td{border:1px solid #cfd8e0;padding:7px 10px;text-align:center}
+.mbox th{background:#eaf4f9}
+.mbox td:first-child,.mbox th:first-child{text-align:left}
+/* ---------- result (Testbook-style) ---------- */
+#result .topbar{background:#0f96c7}
+#result .topbar .back{font-size:24px;margin-right:10px}
+#result .topbar .ttl{display:flex;align-items:center}
+#result .an-btn{background:#0b83ae;padding:14px 22px;font-weight:bold;font-size:14px;border-radius:3px}
+.rqhead{padding:14px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;border-bottom:1px solid #e3e8ec}
+.rqhead b{font-size:15px}
+.badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:bold;color:#fff}
+.b-ok{background:#2eaa5a}.b-bad{background:#c0392b}.b-skip{background:#777}
+.mk{background:#777;color:#fff;border-radius:10px;padding:2px 8px;font-size:12px;font-weight:bold}
+.ropt{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:6px 0;border-radius:5px;border:1px solid transparent;font-size:15.5px}
+.ropt .rd{width:16px;height:16px;border:2px solid #777;border-radius:50%;flex:none;position:relative}
+.ropt.you .rd::after{content:"";position:absolute;inset:2px;background:#555;border-radius:50%}
+.ropt.right{background:#e6f6ec;border-color:#2eaa5a}
+.ropt.right .rd{border-color:#2eaa5a}
+.ropt.right .rd::after{content:"";position:absolute;inset:2px;background:#2eaa5a;border-radius:50%}
+.ropt.wrong{background:#fdeaea;border-color:#c0392b}
+.ropt.wrong .rd{border-color:#c0392b}
+.ropt.wrong .rd::after{content:"";position:absolute;inset:2px;background:#c0392b;border-radius:50%}
+.tag{margin-left:auto;font-size:12px;font-weight:bold}
+.tag.g{color:#1f8a46}.tag.r{color:#c0392b}
+.reattempt{background:#fdf1e0;border:1px solid #f1dcb9;border-radius:4px;padding:16px 18px;margin:18px 0;max-width:460px}
+.reattempt b{font-size:16px;font-weight:normal;color:#444}
+.reattempt p{font-style:italic;font-size:13px;color:#666;margin-top:4px}
+.vsbtn{background:#fff;border:1px solid #0f96c7;color:#0f96c7;padding:8px 16px;border-radius:3px;font-size:13px}
+.vsrow{display:flex;gap:12px;align-items:center;margin:14px 0;font-size:13px;color:#555;flex-wrap:wrap}
+.solbox{border:1px solid #cfe3ee;background:#f7fbfd;border-radius:5px;padding:16px 18px;margin:8px 0 20px;line-height:1.75;font-size:15px}
+.solbox h4{color:#0f6f93;margin-bottom:6px}
+.solbox .ans{margin-top:10px;font-weight:bold;color:#1f8a46}
+.pie{width:170px;height:170px;border-radius:50%;margin:10px 0}
+.pielegend{font-size:13px;line-height:1.7}
+.pielegend i{display:inline-block;width:11px;height:11px;margin-right:6px;border-radius:2px}
+#result .side .cnt{display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;font-size:12px;border-bottom:1px solid #c3d6e2;background:#d8eaf4}
+.cnt span{display:inline-flex;align-items:center;gap:5px}
+.cnt em{font-style:normal;color:#fff;padding:1px 6px;border:1px solid #333;font-size:11px}
+.rp{width:40px;height:34px;border:0;font-size:14px;font-weight:bold;position:relative}
+.rp.ok{background:#2eaa5a;color:#fff;border-radius:18px 18px 3px 3px}
+.rp.bad{background:#c0392b;color:#fff;border-radius:18px 18px 3px 3px}
+.rp.skip{background:#fff;color:#222;border:1px solid #333;border-radius:2px}
+.rp.cursel{outline:2px solid #0f6f93;outline-offset:2px}
+@media(max-width:820px){.layout{flex-direction:column}.side{width:100%;border-left:0;border-top:1px solid #c3d6e2}.qbody{padding:14px}}
+</style>
+<script src="tracker.js"></script>
+</head>
+<body>
+
+<!-- =============== INTRO =============== -->
+<div id="intro">
+  <header>
+    <h1>SSC CGL 2026 – Tier-2 Mock 5</h1>
+    <p>Mathematical Abilities (Paper-I, Section-I) • Based on RBE Revolution By Education booklet</p>
+  </header>
+  <div class="body">
+    <div class="meta">
+      <div><b>Questions:</b> 30</div>
+      <div><b>Total Marks:</b> 90</div>
+      <div><b>Duration:</b> 30 minutes</div>
+      <div><b>Marking:</b> +3 correct, −1 wrong</div>
+    </div>
+    <h3>Instructions</h3>
+    <ul>
+      <li>The countdown timer at the top-right shows the remaining time. The test auto-submits when it reaches zero.</li>
+      <li>Click a question number in the palette to jump to it.</li>
+      <li><b>Save &amp; Next</b> saves your answer and moves ahead. <b>Mark for Review &amp; Next</b> flags the question (an answered, marked question is still evaluated).</li>
+      <li><b>Clear Response</b> removes your selected option.</li>
+    </ul>
+    <div class="legend-row">
+      <span class="lg"><span class="pb nv">1</span> Not Visited</span>
+      <span class="lg"><span class="pb na">2</span> Not Answered</span>
+      <span class="lg"><span class="pb an">3</span> Answered</span>
+      <span class="lg"><span class="pb mr">4</span> Marked for Review</span>
+      <span class="lg"><span class="pb ar">5</span> Answered &amp; Marked</span>
+    </div>
+    <p style="margin-top:18px"><button class="btn btn-green" onclick="startTest()">I am ready to begin</button></p>
+  </div>
+</div>
+
+<!-- =============== TEST =============== -->
+<div id="test" class="hidden">
+  <div class="topbar">
+    <div><h2>SSC CGL 2026 Tier-2 Mock 5</h2><div class="sub">Mathematical Abilities</div></div>
+    <div>Time Left: <span class="timer" id="timer">30:00</span></div>
+  </div>
+  <div class="sectionbar"><b>SECTIONS</b><span>Mathematical Abilities</span></div>
+  <div class="layout">
+    <div class="main">
+      <div class="qhead"><b id="qno">Question No. 1</b><span>Marking Scheme: <b style="color:#2eaa5a">+3</b> / <b style="color:#c0392b">−1</b></span></div>
+      <div class="qbody"><div class="qtext" id="qtext"></div><div id="opts"></div></div>
+      <div class="qfoot">
+        <button class="btn btn-purple" onclick="markNext()">Mark for Review &amp; Next</button>
+        <button class="btn btn-light" onclick="clearResp()">Clear Response</button>
+        <button class="btn btn-light" onclick="go(cur-1)">Previous</button>
+        <span class="sp"></span>
+        <button class="btn btn-blue" onclick="saveNext()">Save &amp; Next</button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="legend" id="legend"></div>
+      <div class="sec">Mathematical Abilities</div>
+      <div class="palwrap"><div class="pal" id="pal"></div></div>
+      <div class="submitbox"><button class="btn btn-green" style="width:100%" onclick="confirmSubmit()">Submit Test</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- =============== RESULT =============== -->
+<div id="result" class="hidden">
+  <div class="topbar">
+    <div class="ttl"><span class="back" style="cursor:pointer" onclick="showSummary()">☰</span>
+      <div><h2>Tests</h2><div class="sub">SSC CGL 2026 Tier-2 Mock 5 – Maths • Solutions &amp; Analysis</div></div></div>
+    <div class="an-btn" style="cursor:pointer" onclick="showSummary()">ANALYTICS</div>
+  </div>
+  <div class="sectionbar"><b>SECTIONS</b><span>Test</span>
+    <span style="background:none;color:#222;margin-left:auto;padding:0;font-weight:normal">Score: <b id="scoreTop"></b></span></div>
+  <div class="layout">
+    <div class="main">
+      <div class="rqhead" id="rhead"></div>
+      <div class="qbody">
+        <div class="qtext" id="rtext"></div>
+        <div id="ropts"></div>
+        <div class="vsrow"><button class="vsbtn" onclick="toggleSol()">👁 View Solution</button><span>Click here to see the answer now</span></div>
+        <div id="rsol" class="hidden"></div>
+      </div>
+      <div class="qfoot">
+        <button class="btn btn-light" onclick="rgo(rc-1)">Previous</button>
+        <span class="sp"></span>
+        <button class="btn btn-light" onclick="rgo(rc+1)">Next</button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="cnt" id="rcnt"></div>
+      <div class="sec">SECTION : Test</div>
+      <div class="palwrap"><div class="pal" id="rpal"></div></div>
+      <div class="submitbox" style="display:flex;gap:8px">
+        <button class="btn btn-light" style="flex:1" onclick="showSummary()">Summary</button>
+        <button class="btn btn-light" style="flex:1" onclick="location.reload()">Retake</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden"><div class="mbox" id="mbox"></div></div>
+
+<script>
+/* ===== CONFIG ===== */
+var MARK_RIGHT = 3, MARK_WRONG = 1, DURATION = 1800; // seconds
+
+/* ===== QUESTION DATA ===== */
+var Q = [
+{c:"Statistics",q:"The average of 14 numbers is 60. The average of the first 5 numbers is 55, and that of the next 5 numbers is 20% more than the average of the first 5 numbers. The 11th number is 9 more than the 14th number, the 12th number is 6 less than the 14th number, and the 13th number is 4 more than the 14th number. What is the average of the 11th and 13th numbers?",
+ o:["61.5", "62.5", "63.5", "64.5"],a:2,
+ s:"Average of first 5 = 55; average of next 5 = 55 + 20% of 55 = 66.<br>Let the 14th number = k. Then 11th = k+9, 12th = k−6, 13th = k+4.<br>Deviation from assumed mean 60: 5×(55−60) + 5×(66−60) = −25+30 = +5.<br>So remaining 4 numbers (11th–14th) must have deviation −5 ⇒ their sum = 4×60 − 5 = 235.<br>(k+9)+(k−6)+(k+4)+k = 4k+7 = 235 ⇒ k = 57.<br>11th = 66, 13th = 61 ⇒ Average = (66+61)/2 = <b>63.5</b>."},
+{c:"Trigonometry",q:"If 5 tan θ₁ = 2 cot θ₂, what is the value of cos(θ₁ − θ₂) / cos(θ₁ + θ₂)?",
+ o:["3/7", "7/3", "−7/3", "5/2"],a:1,
+ s:"cos(θ₁−θ₂)/cos(θ₁+θ₂) = (1 + tanθ₁tanθ₂)/(1 − tanθ₁tanθ₂).<br>5tanθ₁ = 2cotθ₂ ⇒ tanθ₁tanθ₂ = 2/5.<br>Value = (1+2/5)/(1−2/5) = (7/5)/(3/5) = <b>7/3</b>."},
+{c:"Algebra",q:"If x³+y³+z³−3xyz = 7, and p = y+z−x, q = z+x−y, r = x+y−z, what is the value of p³+q³+r³−3pqr?",
+ o:["14", "21", "28", "35"],a:2,
+ s:"Using identity a³+b³+c³−3abc = ½(a+b+c)[(a−b)²+(b−c)²+(c−a)²].<br>p+q+r = x+y+z; (p−q)² = 4(x−y)², etc.<br>So p³+q³+r³−3pqr = 4(x³+y³+z³−3xyz) = 4×7 = <b>28</b>."},
+{c:"Ratio & Proportion",q:"If p : q = 2 : 3, what is the value of (4p + q)/(p + 2q)?",
+ o:["11/7", "11/8", "9/8", "7/8"],a:1,
+ s:"Let p = 2, q = 3.<br>(4(2)+3)/(2+2(3)) = 11/8 = <b>11/8</b>."},
+{c:"Profit & Loss",q:"A trader sold three kinds of items A, B, and C, all having the same cost price per unit. He earned a profit of 10% on A, 25% on B, and 30% on C. On items A and C taken together, his overall profit is 22%, and on all items taken together, his overall profit is 24%. If he sold a total of 300 items, how many items of kind A were sold?",
+ o:["30", "40", "50", "60"],a:1,
+ s:"Alligate (A+C) with B: ratio (A+C):B = (25−24):(24−22) = 1:2 ⇒ (A+C) = 100, B = 200.<br>Alligate A and C: ratio A:C = (30−22):(22−10) = 8:12 = 2:3.<br>Items of A = (2/5)×100 = <b>40</b>."},
+{c:"Time, Speed & Distance",q:"A car covers a fixed distance at a uniform speed. If its speed is increased by 9 km/h, it takes 3 hours less to cover the distance. If its speed is decreased by 6 km/h, it takes 4 hours more. What is the total distance?",
+ o:["180 km", "210 km", "240 km", "270 km"],a:1,
+ s:"Using D = s(s+9)/9 × 3 = s(s−6)/6 × 4.<br>(s+9)/3 = 2(s−6)/3 ⇒ s+9 = 2s−12 ⇒ s = 21 km/h.<br>D = 21×30/9×3 = <b>210 km</b>."},
+{c:"Trigonometry",q:"The angle of elevation of the top of a vertical tower from a point on the ground is θ. The height of the tower is first decreased by 10% and then increased by 20%. The observer moves such that his distance from the foot of the tower is first increased by 25% and then decreased by 28%. If the new angle of elevation is θ′, what is the relation between tan θ′ and tan θ?",
+ o:["tan θ′ = 5/6 tan θ", "tan θ′ = 6/5 tan θ", "tan θ′ = 4/5 tan θ", "tan θ′ = tan θ"],a:1,
+ s:"Net change in height: −10%+20%−(10×20/100)% = +8% ⇒ h′ = 1.08h.<br>Net change in distance: +25%−28%−(25×28/100)% = −10% ⇒ d′ = 0.90d.<br>tan θ′ = h′/d′ = 1.08h/0.90d = <b>6/5 tan θ</b>."},
+{c:"Data Interpretation",q:"A pictograph displays car sales over five months (January to May). The sales in January and March combined represent 8 units, while the sales in February and May combined represent 13 units. By what percentage is the total number of cars sold in February and May together more than that in January and March together?",
+ o:["55.5%", "60%", "62.5%", "65%"],a:2,
+ s:"Absolute increase = 13−8 = 5 units.<br>Percentage increase = (5/8)×100% = <b>62.5%</b>."},
+{c:"Number System",q:"For a natural number m > 2, the numbers 2m, m²−1, and m²+1 form a Pythagorean triplet. If the hypotenuse is 49 more than the shortest side, what is the value of the hypotenuse?",
+ o:["50", "65", "82", "101"],a:1,
+ s:"Hypotenuse = m²+1. Testing m=8: triplet = (16, 63, 65). Shortest side = 16; difference = 65−16 = 49, matches.<br>Hypotenuse = <b>65</b>."},
+{c:"Statistics",q:"The marks of nine students in a mathematics test are given. If the highest score among the students is 75 and the lowest score is 25, what is the coefficient of range?",
+ o:["0.25", "0.40", "0.50", "0.60"],a:2,
+ s:"Coefficient of Range = (H−L)/(H+L) = (75−25)/(75+25) = 50/100 = <b>0.50</b>."},
+{c:"Time & Work",q:"An empty tank has two inlet pipes A and B that can fill it in 10 hours and 15 hours respectively, and an outlet pipe C that can empty it in 15 hours. Ravi opened A and B together. Pipe C was set to open automatically the moment the tank became 50% full, and Ravi planned to return exactly when the tank would become full. However, due to a technical fault, C opened when the tank was only 20% full. When Ravi returned at his planned time, what percentage of the tank was filled?",
+ o:["84%", "86%", "88%", "90%"],a:2,
+ s:"Let capacity = 30 L. A=+3L/h, B=+2L/h, C=−2L/h.<br>Planned time: 15L by A+B in 3h, next 15L by A+B+C (net 3L/h) in 5h ⇒ total 8h.<br>With fault: C opens at 6L (20%), taking 6/5=1.2h. Remaining 6.8h at net 3L/h ⇒ 20.4L added.<br>Total = 6+20.4 = 26.4L ⇒ 26.4/30×100 = <b>88%</b>."},
+{c:"Mensuration",q:"Two identical circular discs of the largest possible size are cut side by side from a rectangular metal sheet of dimensions 56 cm × 28 cm. What is the area of the leftover metal sheet? (Use π = 22/7)",
+ o:["294 cm²", "312 cm²", "336 cm²", "356 cm²"],a:2,
+ s:"Each disc has diameter 28 cm, radius 14 cm.<br>Sheet area = 56×28 = 1568 cm².<br>Two discs area = 2×(22/7)×14×14 = 1232 cm².<br>Leftover = 1568−1232 = <b>336 cm²</b>."},
+{c:"Geometry",q:"A straight fence is constructed across a circular park forming a chord of length 42 m. The perpendicular distance of the fence from the centre of the park is 20 m. What is the radius of the circular park?",
+ o:["25 m", "27 m", "29 m", "31 m"],a:2,
+ s:"Half-chord = 21 m. R = √(20²+21²) = √841 = <b>29 m</b> (20–21–29 triplet)."},
+{c:"Probability",q:"A leap year is selected at random. What is the probability that it will contain 53 Sundays or 53 Mondays?",
+ o:["2/7", "3/7", "4/7", "5/7"],a:1,
+ s:"A leap year has 366 days = 52 weeks + 2 odd days.<br>Favourable pairs of extra days containing Sunday or Monday: (Sat,Sun), (Sun,Mon), (Mon,Tue) = 3 out of 7.<br>P = <b>3/7</b>."},
+{c:"Mensuration",q:"A hemispherical bowl of internal radius 12 cm is full of milk. The milk is poured into cylindrical bottles of radius 4 cm and height 9 cm. During the transfer, 1/8 of the milk is spilled. How many cylindrical bottles can be completely filled?",
+ o:["6", "7", "8", "9"],a:1,
+ s:"Volume of milk = (2/3)π(12)³ = 1152π cm³.<br>Usable after spill = (7/8)×1152π = 1008π cm³.<br>Volume per bottle = π(4)²(9) = 144π cm³.<br>Bottles = 1008π/144π = <b>7</b>."},
+{c:"Simple & Compound Interest",q:"Neha invested Rs. P in Scheme A at 8% per annum simple interest for 5 years, and Rs. (P + 1000) in Scheme B at 10% per annum compound interest (compounded annually) for 2 years. If the interest earned from Scheme A exceeds the interest from Scheme B by Rs. 740, what is the value of P?",
+ o:["Rs. 4,500", "Rs. 5,000", "Rs. 5,500", "Rs. 6,000"],a:1,
+ s:"Scheme A: 8%×5 = 40% ⇒ Interest = 0.40P.<br>Scheme B: effective 2-year CI rate = 21% ⇒ Interest = 0.21(P+1000) = 0.21P+210.<br>0.40P − (0.21P+210) = 740 ⇒ 0.19P = 950 ⇒ P = <b>Rs. 5,000</b>."},
+{c:"Coordinate Geometry",q:"Find the area of the region enclosed by the graphs of y = |2x − 6| and y = 8.",
+ o:["24 sq units", "28 sq units", "32 sq units", "36 sq units"],a:2,
+ s:"Vertex of y=|2x−6| at x=3, y=0.<br>Intersection with y=8: x=7 or x=−1.<br>Triangle base = 7−(−1) = 8, height = 8.<br>Area = ½×8×8 = <b>32 sq units</b>."},
+{c:"Geometry",q:"A tangent touches a circle of radius 17 cm at point T. A chord PQ of length 30 cm is drawn parallel to the tangent on the same side of the centre as T. What is the distance between the point of tangency T and the chord PQ?",
+ o:["7 cm", "8 cm", "9 cm", "11 cm"],a:2,
+ s:"Half-chord = 15 cm. Distance of chord from centre = √(17²−15²) = √64 = 8 cm.<br>Since PQ is on the same side as T: distance = OT − d = 17−8 = <b>9 cm</b>."},
+{c:"Data Interpretation",q:"A frequency polygon records car parking durations at a mall parking lot on Monday and Sunday. The parking fee structure is: Rs. 20 for less than 2 hours; Rs. 50 for 2 to less than 4 hours; Rs. 80 for 4 hours or more. Monday: 70 cars parked for &lt;2 hours; 40 cars for 2 to &lt;4 hours; 10 cars for ≥4 hours. Sunday: 30 cars parked for &lt;2 hours; 60 cars for 2 to &lt;4 hours; 25 cars for ≥4 hours. What is the ratio of total parking fees collected on Sunday to that collected on Monday?",
+ o:["3 : 4", "4 : 3", "5 : 4", "7 : 6"],a:1,
+ s:"Monday = 70×20+40×50+10×80 = 1400+2000+800 = Rs.4200.<br>Sunday = 30×20+60×50+25×80 = 600+3000+2000 = Rs.5600.<br>Ratio = 5600:4200 = <b>4 : 3</b>."},
+{c:"Geometry",q:"In ΔABC, points D and E lie on sides AC and BC respectively such that DE ∥ AB. Point F is located on segment CE such that DF ∥ AE. If CE = 6 cm and CF = 2.5 cm, what is the total length of side BC?",
+ o:["13.6 cm", "14.4 cm", "15.0 cm", "15.2 cm"],a:1,
+ s:"In ΔCAE, DF∥AE ⇒ CD/DA = CF/FE. FE = 6−2.5 = 3.5 ⇒ CD/DA = 2.5/3.5 = 5/7.<br>In ΔCAB, DE∥AB ⇒ CD/DA = CE/EB ⇒ 5/7 = 6/EB ⇒ EB = 42/5 = 8.4 cm.<br>BC = CE+EB = 6+8.4 = <b>14.4 cm</b>."},
+{c:"Mensuration",q:"A toy is in the shape of a right circular cone mounted on a hemisphere of the same radius. The volume of the hemispherical part is 250π/3 cm³, and the total height of the toy is 17 cm. What is the total surface area of the toy?",
+ o:["105π cm²", "115π cm²", "125π cm²", "130π cm²"],a:1,
+ s:"(2/3)πr³ = 250π/3 ⇒ r³=125 ⇒ r=5 cm.<br>h(cone) = 17−5 = 12 cm. Slant height l = √(5²+12²) = 13 cm.<br>TSA = πrl + 2πr² = πr(l+2r) = 5π(13+10) = <b>115π cm²</b>."},
+{c:"Geometry",q:"AB is a chord of a circle with centre O. C is a point on the minor arc AB such that ∠ACB = 128°. A tangent is drawn to the circle at point A. What is the measure of the acute angle between this tangent and the chord AB?",
+ o:["48°", "52°", "56°", "64°"],a:1,
+ s:"Let D be any point on the major arc AB. Since ACBD is cyclic: ∠ADB = 180°−128° = 52°.<br>By Alternate Segment Theorem, angle between tangent at A and chord AB = ∠ADB = <b>52°</b>."},
+{c:"Statistics",q:"The variance of 25 observations is 6.4. What is the sum of the squares of the deviations of these observations from their arithmetic mean?",
+ o:["140", "150", "160", "175"],a:2,
+ s:"Sum of squared deviations = n×σ² = 25×6.4 = <b>160</b>."},
+{c:"Simplification",q:"Which of the following expressions evaluates to a sum equal to 75?",
+ o:["73½ + 1⅓", "73⅔ + 1⅓", "74¼ + 1½", "72⅗ + 2⅕"],a:1,
+ s:"Option B: 73⅔ + 1⅓ = (73+1)+(2/3+1/3) = 74+1 = <b>75</b>."},
+{c:"Number System",q:"The HCF of 657 and 963 can be expressed in the linear form 657x + 963(−15). What is the value of x?",
+ o:["20", "22", "24", "25"],a:1,
+ s:"HCF(657,963) = 9 (by Euclidean algorithm).<br>657x + 963(−15) = 9 ⇒ 657x = 9+14445 = 14454 ⇒ x = 14454/657 = <b>22</b>."},
+{c:"Partnership",q:"P and Q are partners with initial capitals of Rs. 40,000 and Rs. 60,000 respectively, sharing profits in the ratio of their capitals. R is admitted as a new partner such that future profits will be shared equally among all three. R pays Rs. 45,000 as compensation/goodwill, which is divided between P and Q strictly in their sacrificing ratio. What amount of compensation does P receive?",
+ o:["Rs. 9,000", "Rs. 12,000", "Rs. 15,000", "Rs. 18,000"],a:0,
+ s:"Capital ratio P:Q = 2:3 ⇒ old shares P=2/5, Q=3/5. New shares = 1/3 each.<br>Sacrifice of P = 2/5−1/3 = 1/15; Sacrifice of Q = 3/5−1/3 = 4/15.<br>Sacrificing ratio P:Q = 1:4.<br>P's share = (1/5)×45,000 = <b>Rs. 9,000</b>."},
+{c:"Mensuration",q:"A regular square pyramid has a volume of 10,800 cm³. The ratio of its vertical height to the side of its square base is 6 : 5. What is the radius of the largest sphere that can be inscribed inside this pyramid?",
+ o:["8 cm", "9 cm", "10 cm", "12 cm"],a:2,
+ s:"Let base side = 5k, height = 6k. Volume = (1/3)(25k²)(6k) = 50k³ = 10800 ⇒ k³=216 ⇒ k=6.<br>Base side a=30, height h=36, slant height l=√(36²+15²)=39 cm.<br>Inradius of cross-section triangle (base 30, sides 39,39): area=½×30×36=540; s=(39+39+30)/2=54.<br>r = 540/54 = <b>10 cm</b>."},
+{c:"Trigonometry",q:"Simplify: [sin(90°+A)·cot(270°+A)·sec(360°+A)] / [cos(180°−A)·tan(180°+A)·cosec(90°−A)]",
+ o:["1", "tan²A", "−1", "cot²A"],a:0,
+ s:"Numerator: sin(90°+A)=cosA, cot(270°+A)=−tanA, sec(360°+A)=secA ⇒ Numerator = −tanA.<br>Denominator: cos(180°−A)=−cosA, tan(180°+A)=tanA, cosec(90°−A)=secA ⇒ Denominator = −tanA.<br>Value = −tanA/−tanA = <b>1</b>."},
+{c:"Profit & Loss",q:"A watch is sold for Rs. 1,224 at a loss of 15%. What is the cost price of the watch?",
+ o:["Rs. 1,400", "Rs. 1,440", "Rs. 1,480", "Rs. 1,500"],a:1,
+ s:"SP = 85% of CP ⇒ CP = 1224/0.85 = <b>Rs. 1,440</b>."},
+{c:"Number System",q:"Which of the following expressions, when multiplied by (3^(2/3) − 3^(1/3) + 1), yields a rational number?",
+ o:["3^(1/3) − 1", "3^(1/3) + 1", "3^(2/3) + 1", "3^(2/3) − 1"],a:1,
+ s:"Using a³+b³ = (a+b)(a²−ab+b²) with a=3^(1/3), b=1: (3^(1/3)+1)(3^(2/3)−3^(1/3)+1) = 3+1 = 4, rational.<br>Required factor = <b>3^(1/3) + 1</b>."}
+];
+
+/* ===== STATE ===== */
+var N = Q.length, cur = 0, rc = 0, remaining = DURATION, tick = null;
+var ans = [], visited = [], marked = [], tspent = [], name = "Candidate", submitted = false;
+for (var i=0;i<N;i++){ans.push(null);visited.push(false);marked.push(false);tspent.push(0);}
+var L = ["A","B","C","D"];
+function $(id){return document.getElementById(id);}
+function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),r=s%60;return (m<10?"0":"")+m+":"+(r<10?"0":"")+r;}
+
+/* ===== TEST ===== */
+function startTest(){
+  $("intro").classList.add("hidden"); $("test").classList.remove("hidden");
+  renderTest();
+  tick = setInterval(function(){
+    remaining--; tspent[cur]++;
+    $("timer").textContent = fmt(remaining);
+    if (remaining<=0){ clearInterval(tick); finish(); }
+  },1000);
+}
+function stateOf(i){
+  if (!visited[i]) return "nv";
+  var a = ans[i]!==null, m = marked[i];
+  if (a&&m) return "ar"; if (m) return "mr"; if (a) return "an"; return "na";
+}
+function renderTest(){
+  visited[cur]=true;
+  var q=Q[cur];
+  $("qno").textContent="Question No. "+(cur+1);
+  $("qtext").innerHTML=q.q;
+  var h="";
+  q.o.forEach(function(t,i){
+    h+='<label class="opt"><input type="radio" name="o" '+(ans[cur]===i?"checked":"")+' onchange="ans['+cur+']='+i+';renderPal()"><span><b>('+L[i]+')</b>&nbsp; '+t+'</span></label>';
+  });
+  $("opts").innerHTML=h;
+  renderPal();
+}
+function renderPal(){
+  var h="",c={nv:0,na:0,an:0,mr:0,ar:0};
+  for (var i=0;i<N;i++){var s=stateOf(i);c[s]++;h+='<button class="pb '+s+(i===cur?" cur":"")+'" onclick="go('+i+')">'+(i+1)+'</button>';}
+  $("pal").innerHTML=h;
+  $("legend").innerHTML=
+   '<span class="lg"><span class="pb an">'+c.an+'</span>Answered</span>'+
+   '<span class="lg"><span class="pb na">'+c.na+'</span>Not Answered</span>'+
+   '<span class="lg"><span class="pb nv">'+c.nv+'</span>Not Visited</span>'+
+   '<span class="lg"><span class="pb mr">'+c.mr+'</span>Marked</span>'+
+   '<span class="lg" style="grid-column:1/3"><span class="pb ar">'+c.ar+'</span>Answered &amp; Marked (will be evaluated)</span>';
+}
+function go(i){ if(i<0||i>=N) return; cur=i; renderTest(); }
+function saveNext(){ marked[cur]=marked[cur]; if(cur<N-1) go(cur+1); else renderPal(); }
+function markNext(){ marked[cur]=true; if(cur<N-1) go(cur+1); else renderPal(); }
+function clearResp(){ ans[cur]=null; marked[cur]=false; renderTest(); }
+
+function confirmSubmit(){
+  var a=0; ans.forEach(function(x){if(x!==null)a++;});
+  $("mbox").innerHTML='<h3>Submit Test?</h3><p style="line-height:1.7">Answered: <b>'+a+'</b> &nbsp;|&nbsp; Not answered: <b>'+(N-a)+'</b> &nbsp;|&nbsp; Time left: <b>'+fmt(remaining)+'</b></p><p style="margin-top:12px">Once submitted, you cannot change your answers.</p><p style="margin-top:16px;display:flex;gap:10px"><button class="btn btn-green" onclick="finish()">Yes, Submit</button><button class="btn btn-light" onclick="closeModal()">Go Back</button></p>';
+  $("modal").classList.remove("hidden");
+}
+function closeModal(){ $("modal").classList.add("hidden"); }
+
+/* ===== RESULT ===== */
+function statusOf(i){ if(ans[i]===null) return "skip"; return ans[i]===Q[i].a?"ok":"bad"; }
+function stats(){
+  var s={ok:0,bad:0,skip:0,score:0,time:0};
+  for(var i=0;i<N;i++){var t=statusOf(i);s[t]++; s.time+=tspent[i];}
+  s.score = s.ok*MARK_RIGHT - s.bad*MARK_WRONG;
+  return s;
+}
+function finish(){
+  if(submitted) return; submitted=true; clearInterval(tick); closeModal();
+  $("test").classList.add("hidden"); $("result").classList.remove("hidden");
+  var s=stats();
+  try{ logResult({test:"RBE Mock 5", subject:"Mathematics", score:s.score, total:N*MARK_RIGHT, seconds:s.time, wrong:qlists().wrong.join(", "), skipped:qlists().skip.join(", ")}); }catch(e){}
+  $("scoreTop").textContent=s.score+" / "+(N*MARK_RIGHT);
+  $("rcnt").innerHTML='<span><em style="background:#2eaa5a;border-color:#2eaa5a">'+s.ok+'</em> Correct</span><span><em style="background:#fff;color:#000">'+s.skip+'</em> Unattempted</span><span><em style="background:#c0392b;border-color:#c0392b">'+s.bad+'</em> Incorrect</span>';
+  rc=0; renderRes(); window.scrollTo(0,0); showSummary();
+}
+function renderRes(){
+  var q=Q[rc], u=ans[rc], st=statusOf(rc);
+  var mk = st==="ok"?"+"+MARK_RIGHT : (st==="bad"?"−"+MARK_WRONG:"0");
+  var bl = st==="ok"?"Correct":(st==="bad"?"Incorrect":"Skipped");
+  $("rhead").innerHTML='<b>Question No.'+(rc+1)+'</b><span class="badge b-'+st+'">'+bl+'</span><span>⏱ You: <b>'+fmt(tspent[rc])+'</b></span><span style="color:#aaa">|</span><span>Marks <span class="mk" style="background:'+(st==="ok"?"#2eaa5a":st==="bad"?"#c0392b":"#777")+'">'+mk+'</span></span><span style="margin-left:auto;color:#667">Topic: '+q.c+'</span>';
+  $("rtext").innerHTML=q.q;
+  var h="";
+  q.o.forEach(function(t,i){
+    var cls="ropt", tag="";
+    if(i===q.a){cls+=" right"; tag='<span class="tag g">✓ Correct Answer'+(u===i?" (Your Answer)":"")+'</span>';}
+    else if(i===u){cls+=" wrong"; tag='<span class="tag r">✗ Your Answer</span>';}
+    h+='<div class="'+cls+'"><span class="rd"></span><span>('+L[i]+') '+t+'</span>'+tag+'</div>';
+  });
+  $("ropts").innerHTML=h;
+  $("rsol").className="hidden";
+  $("rsol").innerHTML='<div class="solbox"><h4>Solution</h4>'+q.s+'<div class="ans">Hence, option ('+L[q.a]+') is correct.</div></div>';
+  var p="";
+  for(var i=0;i<N;i++){p+='<button class="rp '+statusOf(i)+(i===rc?" cursel":"")+'" onclick="rgo('+i+')">'+(i+1)+'</button>';}
+  $("rpal").innerHTML=p;
+}
+function rgo(i){ if(i<0||i>=N) return; rc=i; renderRes(); }
+function toggleSol(){ $("rsol").classList.toggle("hidden"); }
+
+function qlists(){
+  var w=[],k=[];
+  for(var i=0;i<N;i++){var t=statusOf(i); if(t==="bad")w.push(i+1); else if(t==="skip")k.push(i+1);}
+  return {wrong:w,skip:k};
+}
+function showSummary(){
+  var ql=qlists();
+  var s=stats(), att=s.ok+s.bad, acc=att?Math.round(100*s.ok/att):0;
+  var cats={}, order=[];
+  for(var i=0;i<N;i++){var c=Q[i].c; if(!cats[c]){cats[c]={n:0,ok:0,bad:0,sk:0,t:0};order.push(c);} var o=cats[c]; o.n++; o.t+=tspent[i]; var st=statusOf(i); if(st==="ok")o.ok++; else if(st==="bad")o.bad++; else o.sk++;}
+  var rows="";
+  order.forEach(function(c){var o=cats[c]; rows+='<tr><td>'+c+'</td><td>'+o.n+'</td><td>'+o.ok+'</td><td>'+o.bad+'</td><td>'+o.sk+'</td><td>'+fmt(o.t)+'</td></tr>';});
+  $("mbox").innerHTML='<h3>Result Summary</h3>'+
+   '<table><tr><th>Score</th><th>Attempted</th><th>Correct</th><th>Incorrect</th><th>Accuracy</th><th>Time Used</th></tr><tr><td><b>'+s.score+' / '+(N*MARK_RIGHT)+'</b></td><td>'+att+' / '+N+'</td><td style="color:#1f8a46"><b>'+s.ok+'</b></td><td style="color:#c0392b"><b>'+s.bad+'</b></td><td>'+acc+'%</td><td>'+fmt(s.time)+'</td></tr></table>'+
+   '<p style="font-size:13px;color:#555;margin-bottom:10px">Booklet benchmarks – Instructor safe score: 70–75+ marks (24–26 quality questions) for a solid 4600 GP Tier-2 standing; 60+ marks indicates a solid standing.</p>'+
+   '<h3 style="font-size:15px">Topic-wise Analysis</h3><table><tr><th>Topic</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Time</th></tr>'+rows+'</table>'+
+   '<h3 style="font-size:15px">Question-wise</h3><table><tr><th style="width:90px;text-align:left">Wrong</th><td style="color:#c0392b">'+(ql.wrong.join(", ")||"None")+'</td></tr><tr><th style="text-align:left">Skipped</th><td>'+(ql.skip.join(", ")||"None")+'</td></tr></table>'+
+   '<button class="btn btn-primary" onclick="closeModal()">Review Solutions</button>';
+  $("modal").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
